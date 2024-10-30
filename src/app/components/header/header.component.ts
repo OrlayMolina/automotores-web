@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,5 +14,22 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
+  mostrarElementos: boolean = true;
+
+  constructor(private router: Router, private authService: AuthService) {
+    this.router.events.subscribe(() => {
+      this.verificarRuta();
+    });
+  }
+
+  verificarRuta() {
+    const rutaActual = this.router.url;
+    if (['/login', '/registro'].includes(rutaActual)) {
+      this.mostrarElementos = false;
+    } else {
+      this.mostrarElementos = true;
+    }
+  }
 
 }

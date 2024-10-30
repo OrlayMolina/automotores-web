@@ -7,45 +7,82 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RegistroEmpleadoDTO } from '../../dto/registro-empleado-dto';
+import { PublicService } from '../../services/public.service';
+import { AuthService } from '../../services/auth.service';
+import { AlertaDTO } from '../../dto/alerta-dto';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css',
 })
 export class RegistroComponent {
-  registroForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
-    this.crearFormulario();
+  registroEmpleadoDTO: RegistroEmpleadoDTO;
+  tiposDocumento: string[];
+  alerta!:AlertaDTO;
+
+  constructor(private publicService: PublicService, private authService: AuthService, private router: Router) {
+    this.tiposDocumento =[];
+    this.cargarTiposDocumento();
+    this.registroEmpleadoDTO = {
+      nro_documento: 0,
+      tipo_documento: 0,
+      cargo: 0,
+      salario: 0,
+      primer_nombre: '',
+      segundo_nombre: '',
+      primer_apeliido: '',
+      segundo_apellido: '',
+      correo: '',
+      password: '',
+      confirm_password: ''
+    }
   }
 
-  private crearFormulario() {
-    this.registroForm = this.formBuilder.group(
-      {
-        email: ['', [Validators.required, Validators.email]],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.maxLength(10),
-            Validators.minLength(7),
-          ],
-        ],
-        confirmaPassword: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]]
-      },
-      { validators: this.passwordsMatchValidator } as AbstractControlOptions
-    );
+  private cargarTiposDocumento() {
+    this.tiposDocumento = ["Cédula de Ciudadania", "Cédula de Extranjería", "Permiso Especial de Permanencia", "Registro Civil", "Tarjeta de Identidad"];
   }
 
   public registrar() {
-    console.log(this.registroForm.value);
+    if (this.sonIguales()) {
+      this.authService.registrarEmpleado(this.registroEmpleadoDTO).subscribe({
+        next: (data) => {
+          this.alerta = {
+            mensaje: data.respuesta,
+            tipo: "success"
+          }
+
+          setTimeout(() => {
+            this.router.navigate(['/activar-cuenta']);
+          }, 1500);
+        },
+        error: (error) => {
+          this.alerta = {
+            mensaje: error.error.respuesta.token,
+            tipo: 'danger',
+          }
+
+        }
+      });
+    } else {
+      this.alerta = {
+        mensaje: "Las contraseñas no coinciden",
+        tipo: 'danger',
+      }
+    }
   }
 
-  passwordsMatchValidator(formGroup: FormGroup) {
-    const password = formGroup.get('password')?.value;
-    const confirmaPassword = formGroup.get('confirmaPassword')?.value;
-    return password == confirmaPassword ? null : { passwordsMismatch: true };
+  public sonIguales(): boolean {
+    return this.registroEmpleadoDTO.password == this.registroEmpleadoDTO.confirm_password;
   }
+
 }

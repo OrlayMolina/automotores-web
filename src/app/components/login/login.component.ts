@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertaComponent } from '../alerta/alerta.component';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { LoginDTO } from '../../dto/login-dto';
 import { AlertaDTO } from '../../dto/alerta-dto';
@@ -10,29 +11,24 @@ import { TokenService } from '../../services/token.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    AlertaComponent,
-    ReactiveFormsModule,
-    FormsModule,
-    RouterModule
-  ],
+  imports: [AlertaComponent, ReactiveFormsModule, FormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
   loginDTO: LoginDTO;
   alerta!: AlertaDTO;
+  mostrarAlerta: boolean = false;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private tokenService: TokenService
-  ){
+  ) {
     this.loginDTO = {
       correo: '',
-      password: ''
-    }
+      password: '',
+    };
   }
 
   public logearse() {
@@ -40,23 +36,31 @@ export class LoginComponent {
       next: (data) => {
         this.tokenService.login(data.respuesta.token);
 
-        const decodedToken = this.tokenService.decodePayload(data.respuesta.token);
+        const decodedToken = this.tokenService.decodePayload(
+          data.respuesta.token
+        );
         const usuario = {
           nombre: decodedToken.nombre,
-          apellido: decodedToken.apellido
+          apellido: decodedToken.apellido,
         };
 
         this.authService.setUser(usuario);
 
         setTimeout(() => {
-          this.router.navigate(['/agendas']);
+          this.router.navigate(['/']);
         }, 1500);
       },
       error: (error) => {
         this.alerta = {
-          mensaje: error.error.respuesta,
-          tipo: 'danger'
+          mensaje: error.error.respuesta.token,
+          tipo: 'danger',
         };
+        this.mostrarAlerta = true;
+
+        setTimeout(() => {
+          this.mostrarAlerta = false;
+          this.loginDTO.password = '';
+        }, 2000);
       },
     });
   }

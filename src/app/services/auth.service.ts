@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MensajeDTO } from '../dto/mensaje-dto';
 import { LoginDTO } from '../dto/login-dto';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { RegistroEmpleadoDTO } from '../dto/registro-empleado-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class AuthService {
 
   public loginCliente(loginDTO: LoginDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.authURL}/login`, loginDTO);
+  }
+
+  public registrarEmpleado(registroEmpleadoDTO: RegistroEmpleadoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.authURL}/empleados/crear-empleado`, registroEmpleadoDTO);
   }
 
   setUser(user: {nombre: string, apellido: string}) {

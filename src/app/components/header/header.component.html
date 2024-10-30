@@ -15,7 +15,7 @@
     <!-- Enlaces o información de usuario a la derecha -->
     <div class="flex items-center space-x-4 text-xl">
       <!-- Mostrar enlaces solo si no está logueado -->
-      <nav class="flex space-x-4">
+      <nav *ngIf="mostrarElementos" class="flex space-x-4">
         <a routerLink="/login" class="hover:underline">Inicia Sesión</a>
         <a routerLink="/registro" class="hover:underline">Crear Cuenta</a>
       </nav>
