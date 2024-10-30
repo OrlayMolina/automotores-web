@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header p-4">
+      <h5 class="mb-0">
+        <i class="fa-solid fa-user-plus me-3"></i>Registro de un nuevo usuario
+      </h5>
+    </div>
+    <div class="card-body p-4">
+      <form class="row g-3" [formGroup]="registroForm" (ngSubmit)="registrar()" novalidate="">
+        <div>
+          <label>Correo: </label>
+          <input type="email" formControlName="email"/>
+        </div>
+
+        <div>
+          <label>Contraseña: </label>
+          <input type="password" formControlName="password"/>
+        </div>
+        <div>
+          <label>Repetir contraseña: </label>
+          <input type="password" formControlName="confirmaPassword" />
+        </div>
+        @if (registroForm.hasError('passwordsMismatch')) {
+          <p>Las contraseñas no coinciden</p>
+        }
+        <button type="submit" [disabled]="registroForm.invalid">Registrarse</button>
+      </form>
+    </div>
+  </div>
+</div>

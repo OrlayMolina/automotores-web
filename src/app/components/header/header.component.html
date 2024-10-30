@@ -1,0 +1,34 @@
+<header class="bg-red-900 text-white py-1">
+  <div class="container mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <a routerLink="">
+        <img src="./img/logo.JPG" alt="Logo" class="h-18 w-28 mr-4" />
+      </a>
+    </div>
+
+    <!-- Título centrado -->
+    <h1 class="text-4xl font-bold flex-grow text-center">
+      Automotores
+    </h1>
+
+    <!-- Enlaces o información de usuario a la derecha -->
+    <div class="flex items-center space-x-4 text-xl">
+      <!-- Mostrar enlaces solo si no está logueado -->
+      <nav class="flex space-x-4">
+        <a routerLink="/login" class="hover:underline">Inicia Sesión</a>
+        <a routerLink="/registro" class="hover:underline">Crear Cuenta</a>
+      </nav>
+
+      <!-- Mostrar nombre de usuario y ícono si está logueado -->
+      <div class="flex items-center space-x-2">
+        <!-- SVG del ícono de usuario -->
+
+        <!-- <span>{{ nombreUsuario }} {{ apellidoUsuario }}</span> -->
+        <svg class="icono-usuario" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
