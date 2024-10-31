@@ -6,7 +6,7 @@ export interface RegistroEmpleadoDTO {
   salario: 0,
   primer_nombre: string,
   segundo_nombre: string,
-  primer_apeliido: string,
+  primer_apellido: string,
   segundo_apellido: string,
   correo: string,
   password: string,

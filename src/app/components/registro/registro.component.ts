@@ -5,14 +5,18 @@ import {
   AbstractControlOptions,
   FormGroup,
   ReactiveFormsModule,
+  FormsModule,
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RegistroEmpleadoDTO } from '../../dto/registro-empleado-dto';
+import { AlertaComponent } from '../alerta/alerta.component';
 import { PublicService } from '../../services/public.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertaDTO } from '../../dto/alerta-dto';
+import { TipoDocumentoDTO } from '../../dto/tipo-documento-dto';
+import { TipoEmpleadoDTO } from '../../dto/tipo-empleado-dto';
 
 @Component({
   selector: 'app-registro',
@@ -20,19 +24,24 @@ import { AlertaDTO } from '../../dto/alerta-dto';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    AlertaComponent
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css',
 })
 export class RegistroComponent {
   registroEmpleadoDTO: RegistroEmpleadoDTO;
-  tiposDocumento: string[];
+  tiposDocumento: TipoDocumentoDTO[];
+  cargos: TipoEmpleadoDTO[];
   alerta!:AlertaDTO;
 
   constructor(private publicService: PublicService, private authService: AuthService, private router: Router) {
-    this.tiposDocumento =[];
+    this.tiposDocumento = [];
     this.cargarTiposDocumento();
+    this.cargos = [];
+    this.cargarCargos();
     this.registroEmpleadoDTO = {
       nro_documento: 0,
       tipo_documento: 0,
@@ -40,7 +49,7 @@ export class RegistroComponent {
       salario: 0,
       primer_nombre: '',
       segundo_nombre: '',
-      primer_apeliido: '',
+      primer_apellido: '',
       segundo_apellido: '',
       correo: '',
       password: '',
@@ -49,7 +58,29 @@ export class RegistroComponent {
   }
 
   private cargarTiposDocumento() {
-    this.tiposDocumento = ["Cédula de Ciudadania", "Cédula de Extranjería", "Permiso Especial de Permanencia", "Registro Civil", "Tarjeta de Identidad"];
+    this.publicService.obtenerTiposDocumento().subscribe({
+      next: (data) => {
+        const abreviaciones = data.respuesta.map((item: TipoDocumentoDTO) => item.abreviacion);
+
+        this.tiposDocumento = abreviaciones;
+      },
+      error: (error) => {
+        console.log('Error al cargar los tipos de documento', error);
+      },
+    });
+  }
+
+  private cargarCargos() {
+    this.publicService.obtenerCargos().subscribe({
+      next: (data) => {
+        const cargos = data.respuesta.map((item: TipoEmpleadoDTO) => item.nombre_cargo);
+
+        this.cargos = cargos;
+      },
+      error: (error) => {
+        console.log('Error al cargar los cargos', error);
+      },
+    });
   }
 
   public registrar() {

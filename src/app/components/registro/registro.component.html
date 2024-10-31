@@ -1,46 +1,98 @@
 <div class="bg-gray-200 flex justify-center items-start min-h-screen">
   <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md my-12">
-    <h2 class="text-2xl font-semibold mb-4 text-center">Crear Cuenta</h2>
+    <h2 class="text-2xl font-semibold mb-4 text-center">Crear Empleado</h2>
 
     <form #f="ngForm" (ngSubmit)="registrar()" class="space-y-4">
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label for="nombres" class="block text-sm font-medium text-gray-700">Nombres</label>
+          <label for="primer_nombre" class="block text-sm font-medium text-gray-700">Primer Nombre: </label>
           <input
             type="text"
-            id="nombres"
+            id="primer_nombre"
             required
             maxlength="15"
-            [(ngModel)]="registroPacienteDTO.nombres"
-            name="nombres" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
+            [(ngModel)]="registroEmpleadoDTO.primer_nombre"
+            name="primer_nombre" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
           >
         </div>
         <div>
-          <label for="apellidos" class="block text-sm font-medium text-gray-700">Apellidos</label>
+          <label for="segundo_nombre" class="block text-sm font-medium text-gray-700">Segundo Nombre: </label>
           <input
             type="text"
-            id="apellidos"
-            name="apellidos"
+            id="segundo_nombre"
             required
             maxlength="15"
-            [(ngModel)]="registroPacienteDTO.apellidos"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
+            [(ngModel)]="registroEmpleadoDTO.segundo_nombre"
+            name="segundo_nombre" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
           >
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label for="nacionalidad" class="block text-sm font-medium text-gray-700">Nacionalidad</label>
-          <select
-            id="nacionalidad"
-            name="nacionalidad"
+          <label for="primer_apellido" class="block text-sm font-medium text-gray-700">Primer Apellido: </label>
+          <input
+            type="text"
+            id="primer_apellido"
             required
-            [(ngModel)]="registroPacienteDTO.nacionalidad"
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.primer_apellido"
+            name="primer_apellido" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
+          >
+        </div>
+        <div>
+          <label for="segundo_apellido" class="block text-sm font-medium text-gray-700">Segundo Apellido: </label>
+          <input
+            type="text"
+            id="segundo_apellido"
+            required
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.segundo_apellido"
+            name="segundo_apellido" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
+          >
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="tipoDocumento" class="block text-sm font-medium text-gray-700">Tipo de Documento</label>
+          <select
+            id="tipoDocumento"
+            [(ngModel)]="registroEmpleadoDTO.tipo_documento"
+            required
+            name="tipoDocumento"
             class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
           >
-            <option value="" selected >Seleccione una nacionalidad</option>
-            @for (item of nacionalidades; track $index) { <option [value]="item" >{{item}}</option> }
+            <option value="" selected >Seleccione tipo de documento</option>
+            @for (item of tiposDocumento; track $index) { <option [value]="item" >{{item}}</option> }
+          </select>
+        </div>
+        <div>
+          <label for="nroDocumento" class="block text-sm font-medium text-gray-700">Número de Documento</label>
+          <input
+            type="text"
+            id="nroDocumento"
+            name="nroDocumento"
+            required
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.nro_documento"
+            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
+            >
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo: </label>
+          <select
+            id="cargo"
+            [(ngModel)]="registroEmpleadoDTO.cargo"
+            required
+            name="cargo"
+            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
+          >
+            <option value="" selected >Seleccione el cargo</option>
+            @for (item of cargos; track $index) { <option [value]="item" class="text-gray-800" >{{item}}</option> }
           </select>
         </div>
         <div>
@@ -52,149 +104,8 @@
             required="true"
             email="true"
             maxlength="40"
-            [(ngModel)]="registroPacienteDTO.email"
+            [(ngModel)]="registroEmpleadoDTO.correo"
             class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm" required>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="tipoDocumento" class="block text-sm font-medium text-gray-700">Tipo de Documento</label>
-          <select
-            id="tipoDocumento"
-            [(ngModel)]="registroPacienteDTO.tipoDocumento"
-            required
-            name="tipoDocumento"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-          >
-            <option value="" selected >Seleccione tipo de documento</option>
-            @for (item of tiposDocumento; track $index) { <option [value]="item" >{{item}}</option> }
-          </select>
-        </div>
-        <div>
-          <label for="fechaNacimiento" class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
-          <input
-            type="date"
-            id="fechaNacimiento"
-            required
-            [(ngModel)]="registroPacienteDTO.fechaNacimiento"
-            name="fechaNacimiento"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-          >
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="nroDocumento" class="block text-sm font-medium text-gray-700">Número de Documento</label>
-          <input
-            type="text"
-            id="nroDocumento"
-            name="nroDocumento"
-            required
-            maxlength="15"
-            [(ngModel)]="registroPacienteDTO.nroDocumento"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-            >
-        </div>
-        <div>
-          <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-          <input
-            type="text"
-            id="telefono"
-            name="telefono"
-            required
-            maxlength="10"
-            [(ngModel)]="registroPacienteDTO.telefono"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-            >
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="departamento" class="block text-sm font-medium text-gray-700">Departamento</label>
-          <select
-            id="departamento"
-            required
-            name="departamento"
-            [(ngModel)]="registroPacienteDTO.departamento"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-          >
-            <option value="" selected >Seleccione un departamento</option>
-            @for (item of departamentos; track $index) { <option [value]="item" >{{item}}</option> }
-          </select>
-        </div>
-        <div>
-          <label
-            for="ciudad"
-            class="block text-sm font-medium text-gray-700"
-          >Ciudad</label>
-          <select
-            id="ciudad"
-            name="ciudad"
-            required
-            required [(ngModel)]="registroPacienteDTO.ciudad"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-          >
-            <option value="" selected >Seleccione una ciudad</option>
-            @for (item of ciudades; track $index) { <option [value]="item" >{{item}}</option> }
-          </select>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
-          <input
-            type="text"
-            id="direccion"
-            name="direccion"
-            required
-            maxlength="100"
-            [(ngModel)]="registroPacienteDTO.direccion"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm">
-        </div>
-        <div>
-          <label for="celular" class="block text-sm font-medium text-gray-700">Celular</label>
-          <input
-            type="text"
-            id="celular"
-            name="celular"
-            required
-            [(ngModel)]="registroPacienteDTO.celular"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-          >
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="planComplementario" class="block text-sm font-medium text-gray-700">Plan Complementario</label>
-          <select
-            id="planComplementario"
-            name="planComplementario"
-            required
-            required [(ngModel)]="registroPacienteDTO.planComplementario"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-          >
-            <option value="" selected >Seleccione un plan complementario</option>
-            @for (item of planes; track $index) { <option [value]="item" >{{item}}</option> }
-          </select>
-        </div>
-        <div>
-          <label for="regimen" class="block text-sm font-medium text-gray-700">Régimen</label>
-          <select
-            id="regimen"
-            name="regimen"
-            required
-            required [(ngModel)]="registroPacienteDTO.regimen"
-            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
-          >
-          <option value="" selected >Seleccione un régimen</option>
-          @for (item of regimenes; track $index) { <option [value]="item" >{{item}}</option> }
-        </select>
-
         </div>
       </div>
 
@@ -208,7 +119,7 @@
             required
             minlength="7"
             maxlength="20"
-            [(ngModel)]="registroPacienteDTO.password"
+            [(ngModel)]="registroEmpleadoDTO.password"
             class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
           >
         </div>
@@ -219,7 +130,7 @@
             id="confirmaPassword"
             name="confirmaPassword"
             required
-            [(ngModel)]="registroPacienteDTO.confirmaPassword"
+            [(ngModel)]="registroEmpleadoDTO.confirm_password"
             class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
           >
         </div>
@@ -230,14 +141,14 @@
         <button
           type="submit"
           [disabled]="f.invalid || !sonIguales()"
-          class="w-full bg-cyan-800 text-white py-2 px-4 rounded-md hover:bg-cyan-600 focus:ring-2 focus:ring-offset-2 focus:ring-cyan-800">
+          class="w-full bg-red-800 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-cyan-800">
           Crear Cuenta
         </button>
       </div>
 
       <app-alerta [alerta]="alerta"></app-alerta>
 
-      <p class="mt-4 text-sm text-center text-gray-600">¿Ya tienes cuenta? <a routerLink="/login" class="text-cyan-800 hover:underline">Inicia Sesión</a></p>
+      <p class="mt-4 text-sm text-center text-gray-600">¿Ya tienes cuenta? <a routerLink="/login" class="text-gray-900 hover:underline">Inicia Sesión</a></p>
     </form>
   </div>
 </div>
