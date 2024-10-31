@@ -1,0 +1,114 @@
+<div class="bg-gray-200 flex justify-center items-start min-h-screen">
+  <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md my-12">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Crear Empleado</h2>
+
+    <form #f="ngForm" (ngSubmit)="registrar()" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="primer_nombre" class="block text-sm font-medium text-gray-700">Primer Nombre: </label>
+          <input
+            type="text"
+            id="primer_nombre"
+            required
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.primer_nombre"
+            name="primer_nombre" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
+          >
+        </div>
+        <div>
+          <label for="segundo_nombre" class="block text-sm font-medium text-gray-700">Segundo Nombre: </label>
+          <input
+            type="text"
+            id="segundo_nombre"
+            required
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.segundo_nombre"
+            name="segundo_nombre" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
+          >
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="primer_apellido" class="block text-sm font-medium text-gray-700">Primer Apellido: </label>
+          <input
+            type="text"
+            id="primer_apellido"
+            required
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.primer_apellido"
+            name="primer_apellido" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
+          >
+        </div>
+        <div>
+          <label for="segundo_apellido" class="block text-sm font-medium text-gray-700">Segundo Apellido: </label>
+          <input
+            type="text"
+            id="segundo_apellido"
+            required
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.segundo_apellido"
+            name="segundo_apellido" class="mt-1 block w-full rounded-md border border-slate-400 shadow-sm sm:text-sm"
+          >
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="tipoDocumento" class="block text-sm font-medium text-gray-700">Tipo de Documento</label>
+          <select
+            id="tipoDocumento"
+            [(ngModel)]="registroEmpleadoDTO.tipo_documento"
+            required
+            name="tipoDocumento"
+            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
+          >
+            <option value="" selected >Seleccione tipo de documento</option>
+            @for (item of tiposDocumento; track $index) { <option [value]="item" >{{item}}</option> }
+          </select>
+        </div>
+        <div>
+          <label for="nroDocumento" class="block text-sm font-medium text-gray-700">Número de Documento</label>
+          <input
+            type="text"
+            id="nroDocumento"
+            name="nroDocumento"
+            required
+            maxlength="15"
+            [(ngModel)]="registroEmpleadoDTO.nro_documento"
+            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
+            >
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo: </label>
+          <select
+            id="cargo"
+            [(ngModel)]="registroEmpleadoDTO.cargo"
+            required
+            name="cargo"
+            class="mt-1 block w-full rounded-md shadow-sm border border-slate-400 sm:text-sm"
+          >
+            <option value="" selected >Seleccione el cargo</option>
+            @for (item of cargos; track $index) { <option [value]="item" class="text-gray-800" >{{item}}</option> }
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <button
+          type="submit"
+          [disabled]="f.invalid"
+          class="w-full bg-red-800 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-cyan-800">
+          Crear Cuenta
+        </button>
+      </div>
+
+      <app-alerta [alerta]="alerta"></app-alerta>
+
+      <p class="mt-4 text-sm text-center text-gray-600">¿Ya tienes cuenta? <a routerLink="/login" class="text-gray-900 hover:underline">Inicia Sesión</a></p>
+    </form>
+  </div>
+</div>
