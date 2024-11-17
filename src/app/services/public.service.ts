@@ -16,6 +16,10 @@ export class PublicService {
     return this.http.get<MensajeDTO>(`${this.publicURL}/tipos-documento`);
   }
 
+  public obtenerTiposVehiculo(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.publicURL}/tipos-vehiculo`);
+  }
+
   public obtenerCargos(): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.publicURL}/empleados/cargos`);
   }

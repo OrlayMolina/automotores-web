@@ -1,0 +1,88 @@
+<div class="container w-full mt-8">
+  <h2 class="text-2xl font-medium mb-4">Registrar Proveedor</h2>
+
+  <!-- Formulario -->
+  <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Número de Documento -->
+    <div>
+      <label for="nroDocumento" class="block font-medium mb-1">Número de Documento</label>
+      <input
+        type="text"
+        id="nroDocumento"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el número de documento"
+        required
+      />
+    </div>
+
+    <!-- Tipo de Documento -->
+    <div>
+      <label for="tipoDocumento" class="block font-medium mb-1">Tipo de Documento</label>
+      <select
+        id="tipoDocumento"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        required
+      >
+        <option value="">Selecciona el tipo de documento</option>
+        <option value="1">Cédula</option>
+        <option value="2">Pasaporte</option>
+        <option value="3">NIT</option>
+        <option value="4">RUC</option>
+        <!-- Agrega más opciones según sea necesario -->
+      </select>
+    </div>
+
+    <!-- Correo -->
+    <div class="md:col-span-2">
+      <label for="correo" class="block font-medium mb-1">Correo Electrónico</label>
+      <input
+        type="email"
+        id="correo"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el correo electrónico"
+        required
+      />
+    </div>
+
+    <!-- Nombre -->
+    <div>
+      <label for="nombre" class="block font-medium mb-1">Nombre del Proveedor</label>
+      <input
+        type="text"
+        id="nombre"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el nombre del proveedor"
+        required
+      />
+    </div>
+
+    <!-- Razón Social -->
+    <div>
+      <label for="razonSocial" class="block font-medium mb-1">Razón Social</label>
+      <input
+        type="text"
+        id="razonSocial"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa la razón social"
+        required
+      />
+    </div>
+
+    <!-- Botones -->
+    <div class="md:col-span-2 flex justify-end space-x-4 mt-4 mb-10">
+      <button
+        type="button"
+        routerLink="/"
+        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

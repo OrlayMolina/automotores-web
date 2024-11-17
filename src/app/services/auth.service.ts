@@ -24,8 +24,8 @@ export class AuthService {
     return this.http.post<MensajeDTO>(`${this.authURL}/empleados/crear-empleado`, registroEmpleadoDTO);
   }
 
-  setUser(user: {nombre: string, apellido: string}) {
-    this.userSubject.next(user);
+  setUser(correo: string) {
+    this.userSubject.next(correo);
   }
 
   logout() {

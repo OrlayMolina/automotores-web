@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AlertaComponent } from '../alerta/alerta.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { LoginDTO } from '../../dto/login-dto';
@@ -11,7 +10,7 @@ import { TokenService } from '../../services/token.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [AlertaComponent, ReactiveFormsModule, FormsModule, RouterModule, CommonModule],
+  imports: [ ReactiveFormsModule, FormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -39,10 +38,7 @@ export class LoginComponent {
         const decodedToken = this.tokenService.decodePayload(
           data.respuesta.token
         );
-        const usuario = {
-          nombre: decodedToken.nombre,
-          apellido: decodedToken.apellido,
-        };
+        const usuario = decodedToken.correo;
 
         this.authService.setUser(usuario);
 

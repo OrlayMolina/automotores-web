@@ -16,18 +16,31 @@
     <div class="flex items-center space-x-4 text-xl">
       <!-- Mostrar enlaces solo si no está logueado -->
       <nav *ngIf="mostrarElementos" class="flex space-x-4">
-        <a routerLink="/login" class="hover:underline">Inicia Sesión</a>
-        <a routerLink="/registro" class="hover:underline">Crear Cuenta</a>
+        <!-- Mostrar enlace de inicio de sesión si no está autenticado -->
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="hover:underline">
+          Inicia Sesión
+        </a>
+        <!-- Mostrar correo si está autenticado -->
+        <a *ngIf="isLoggedIn" class="hover:underline">
+          {{ correo }}
+        </a>
       </nav>
+
 
       <!-- Mostrar nombre de usuario y ícono si está logueado -->
       <div class="flex items-center space-x-2">
         <!-- SVG del ícono de usuario -->
 
-        <!-- <span>{{ nombreUsuario }} {{ apellidoUsuario }}</span> -->
-        <svg class="icono-usuario" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+        <svg
+          (click)="toggleUserMenu()"
+          class="icono-usuario" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
           <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
         </svg>
+
+        <!-- Menú desplegable de usuario -->
+        <div *ngIf="userMenuOpen" class="absolute top-10 right-0 bg-white shadow-md rounded-lg p-2 z-10">
+          <button class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200" (click)="logout()">Logout</button>
+        </div>
       </div>
     </div>
   </div>

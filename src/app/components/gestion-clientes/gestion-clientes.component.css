@@ -1,0 +1,10 @@
+.table-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.d-flex .form-control, .d-flex{
+  width: 100%;
+}

@@ -39,4 +39,22 @@ export class TokenService {
     const values = JSON.parse(payloadDecoded);
     return values;
   }
+
+  public getIDCuenta(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload(token);
+      return values.id_empleado;
+    }
+    return '';
+  }
+
+  public getEmail(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload(token);
+      return values.correo;
+    }
+    return '';
+  }
 }

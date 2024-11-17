@@ -1,0 +1,12 @@
+app-sidebar-menu {
+  width: 240px; /* Asegura un ancho fijo */
+}
+
+app-gestion-clientes {
+  flex-grow: 1; /* Ocupa el espacio restante */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto 1fr; /* Sidebar fijo, contenido flexible */
+}

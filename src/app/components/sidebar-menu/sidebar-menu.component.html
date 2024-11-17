@@ -1,0 +1,17 @@
+<aside class="w-60 md:w-60">
+  <div class="p-4 flex justify-center">
+    <img
+        src="./img/side-logo.JPG"
+        alt="imágen logotipo"
+        class="w-40 object-contain border-1 border-gray-200 rounded-xl shadow-md"
+    />
+  </div>
+
+  <div class='my-6 mx-4'>
+    <div *ngFor="let opcion of menu; let i = index"
+         (click)="onOptionClick(opcion)"
+         class="bg-gray-150 rounded-lg my-2 shadow-md p-2 text-center bg-stone-300 cursor-pointer">
+      {{ opcion }}
+    </div>
+  </div>
+</aside>

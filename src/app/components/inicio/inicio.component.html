@@ -1,1 +1,7 @@
-<p>inicio works!</p>
+<div class="flex">
+  <!-- Sidebar ocupa una sola columna -->
+  <app-sidebar-menu class="w-60" (selectOption)="onMenuOptionSelected($event)"></app-sidebar-menu>
+
+  <!-- Contenedor dinámico ocupa tres columnas en pantallas medianas y grandes -->
+  <ng-container #dynamicComponentContainer class="flex-grow p-4"></ng-container>
+</div>

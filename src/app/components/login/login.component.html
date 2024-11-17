@@ -51,19 +51,6 @@
           Iniciar Sesión
         </button>
       </div>
-
-      <!-- Componente de alerta -->
-      <div *ngIf="mostrarAlerta">
-        <app-alerta [alerta]="alerta"></app-alerta>
-      </div>
-
-      <!-- Enlaces de contraseña y registro -->
-      <div class="text-center">
-        <a href="/enviar-codigo" class="text-gray-800 hover:underline block mb-4">¿Olvidaste tu contraseña?</a>
-        <p class="text-gray-700">¿No tienes cuenta?,
-          <a routerLink="/registro" class="text-gray-800 hover:underline">Regístrate</a>
-        </p>
-      </div>
     </form>
   </div>
 </div>
