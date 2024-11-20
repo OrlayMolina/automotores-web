@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { LoginDTO } from '../../dto/login-dto';
-import { AlertaDTO } from '../../dto/alerta-dto';
+import Swal from 'sweetalert2';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
@@ -16,7 +16,6 @@ import { TokenService } from '../../services/token.service';
 })
 export class LoginComponent {
   loginDTO: LoginDTO;
-  alerta!: AlertaDTO;
   mostrarAlerta: boolean = false;
 
   constructor(
@@ -47,14 +46,15 @@ export class LoginComponent {
         }, 1500);
       },
       error: (error) => {
-        this.alerta = {
-          mensaje: error.error.respuesta.token,
-          tipo: 'danger',
-        };
-        this.mostrarAlerta = true;
+        Swal.fire({
+          title: 'Login Fallido',
+          text: error.error.respuesta,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#8b0000',
+        });
 
         setTimeout(() => {
-          this.mostrarAlerta = false;
           this.loginDTO.password = '';
         }, 2000);
       },
