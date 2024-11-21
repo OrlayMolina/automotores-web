@@ -5,15 +5,24 @@
   <!-- Sección en una sola fila -->
   <div class="mb-4 d-flex align-items-center">
     <!-- Botón Crear -->
-    <button type="button" routerLink="/crear-producto" class="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition me-2" style="height: 100%;">
+    <button type="button" routerLink="/crear-repuesto" class="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition me-2" style="height: 100%;">
       Crear
     </button>
 
     <!-- Campo de búsqueda y botón Consultar -->
     <div class="d-flex flex-grow-1">
-      <input type="text" class="form-control me-2" placeholder="Buscar cliente..." style="height: calc(2.5rem + 2px);">
-      <button type="button" class="btn btn-primary" style="height: calc(2.5rem + 2px);">
+      <input type="text" #codigoRepuesto class="form-control me-2" placeholder="Buscar cliente..." style="height: calc(2.5rem + 2px);">
+      <button
+        type="button"
+        (click)="obtenerRepuesto(codigoRepuesto.value)"
+        class="btn btn-primary" style="height: calc(2.5rem + 2px);">
         Consultar
+      </button>
+      <button
+        type="button"
+        (click)="limpiarFiltro(codigoRepuesto)"
+        class="bg-yellow-500 ml-1 rounded-md" style="height: calc(2.5rem + 2px);">
+        <i class="fas fa-times px-3"></i>
       </button>
     </div>
   </div>
@@ -32,18 +41,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1094952245</td>
-        <td>1</td>
-        <td>$1500000</td>
-        <td>Jorge</td>
-        <td>Andrés</td>
+      <tr *ngFor="let repuesto of repuestos">
+        <td>{{ repuesto.codigo_repuesto }}</td>
+        <td>{{ repuesto.nombre }}</td>
+        <td>{{  repuesto.descripcion }}</td>
+        <td>$ {{ repuesto.precio }}</td>
+        <td>{{ repuesto.cantidad }}</td>
         <td>Andrés</td>
         <td class="table-buttons">
-          <button type="button" class="btn btn-warning btn-sm me-2">
+          <button
+            type="button"
+            [routerLink]="['/crear-repuesto']"
+            [queryParams]="{ codigo_repuesto: repuesto.codigo_repuesto }"
+            class="btn btn-warning btn-sm me-2">
             Editar
           </button>
-          <button type="button" class="btn btn-danger btn-sm">
+          <button
+            type="button"
+            (click)="eliminarRepuesto(repuesto.codigo_repuesto)"
+            class="btn btn-danger btn-sm"
+          >
             Eliminar
           </button>
         </td>

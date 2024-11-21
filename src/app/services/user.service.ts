@@ -7,6 +7,7 @@ import { EmpleadoDTO } from '../dto/empleado-dto';
 import { ProveedorDTO } from '../dto/proveedor-dto';
 import { ServicioDTO } from '../dto/servicio-dto';
 import { VehiculoDTO } from '../dto/vehiculo-dto';
+import { RepuestoDTO } from '../dto/repuesto-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class UserService {
     return this.http.get<MensajeDTO>(`${this.userURL}/vehiculos/obtener-todos`);
   }
 
+  public obtenerRepuestos(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userURL}/repuestos/obtener-todos`);
+  }
+
   public eliminarCliente(nro_documento: number): Observable<MensajeDTO> {
     return this.http.delete<MensajeDTO>(`${this.userURL}/clientes/eliminar-cliente/${nro_documento}`);
   }
@@ -57,6 +62,10 @@ export class UserService {
 
   public eliminarVehiculo(nro_placa: string): Observable<MensajeDTO> {
     return this.http.delete<MensajeDTO>(`${this.userURL}/vehiculos/eliminar-vehiculo/${nro_placa}`);
+  }
+
+  public eliminarRepuesto(codigo_repuesto: string): Observable<MensajeDTO> {
+    return this.http.delete<MensajeDTO>(`${this.userURL}/repuestos/eliminar-repuesto/${codigo_repuesto}`);
   }
 
   public obtenerUnCliente(nro_documento: number): Observable<MensajeDTO> {
@@ -79,6 +88,10 @@ export class UserService {
     return this.http.get<MensajeDTO>(`${this.userURL}/vehiculos/vehiculo/${nro_placa}`);
   }
 
+  public obtenerUnRepuesto(codigo_repuesto: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userURL}/repuestos/repuesto/${codigo_repuesto}`);
+  }
+
   public crearCliente(clienteDTO: ClienteDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userURL}/clientes/crear-cliente`, clienteDTO);
   }
@@ -99,6 +112,10 @@ export class UserService {
     return this.http.post<MensajeDTO>(`${this.userURL}/vehiculos/crear-vehiculo`, vehiculo);
   }
 
+  public crearRepuesto(repuesto: RepuestoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.userURL}/repuestos/crear-repuesto`, repuesto);
+  }
+
   public actualizarCliente(nro_documento: number, clienteDTO: ClienteDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userURL}/clientes/actualizar-cliente/${nro_documento}`, clienteDTO);
   }
@@ -117,6 +134,10 @@ export class UserService {
 
   public actualizarVehiculo(nro_placa: string, vehiculo: VehiculoDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userURL}/vehiculos/actualizar-vehiculo/${nro_placa}`, vehiculo);
+  }
+
+  public actualizarRepuesto(codigo_repuesto: string, repuesto: RepuestoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.userURL}/repuestos/actualizar-repuesto/${codigo_repuesto}`, repuesto);
   }
 
   //////

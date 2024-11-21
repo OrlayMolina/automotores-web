@@ -10,12 +10,14 @@ import { CrearClienteComponent } from './components/crear-cliente/crear-cliente.
 import { CrearVehiculoComponent } from './components/crear-vehiculo/crear-vehiculo.component';
 import { CrearProveedorComponent } from './components/crear-proveedor/crear-proveedor.component';
 import { CrearServicioComponent } from './components/crear-servicio/crear-servicio.component';
+import { CrearRepuestoComponent } from './components/crear-repuesto/crear-repuesto.component';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'crear-empleado', component: CrearEmpleadoComponent },
+  { path: 'crear-repuesto', component: CrearRepuestoComponent },
   { path: 'crear-cliente', component: CrearClienteComponent },
   { path: 'crear-vehiculo', component: CrearVehiculoComponent },
   { path: 'crear-proveedor', component: CrearProveedorComponent },
