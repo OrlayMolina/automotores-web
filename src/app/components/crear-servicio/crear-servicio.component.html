@@ -1,1 +1,91 @@
-<p>crear-servicio works!</p>
+<div class="container w-full mt-8">
+  <h2 class="text-2xl font-medium mb-4">{{ isEditing ? 'Editar Servicio' : 'Registrar Servicio' }}</h2>
+
+  <!-- Formulario -->
+  <form class="grid grid-cols-1 md:grid-cols-2 gap-4" [formGroup]="crearServicioForm">
+    <!-- ID Servicio -->
+    <div>
+      <label for="idServicio" class="block font-medium mb-1">ID Servicio</label>
+      <input
+        type="number"
+        formControlName="id_servicio"
+        id="idServicio"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el ID del servicio"
+        required
+        [disabled]="isEditing"
+      />
+    </div>
+
+    <!-- Nombre -->
+    <div>
+      <label for="nombre" class="block font-medium mb-1">Nombre del Servicio</label>
+      <input
+        type="text"
+        formControlName="nombre"
+        id="nombre"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el nombre del servicio"
+        required
+      />
+    </div>
+
+    <!-- Descripción del Servicio -->
+    <div class="md:col-span-2">
+      <label for="descripcionServicio" class="block font-medium mb-1">Descripción del Servicio</label>
+      <textarea
+        id="descripcionServicio"
+        formControlName="descripcion_servicio"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa una descripción del servicio"
+        rows="3"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Precio -->
+    <div>
+      <label for="precio" class="block font-medium mb-1">Precio</label>
+      <input
+        type="number"
+        formControlName="precio"
+        id="precio"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el precio del servicio"
+        required
+      />
+    </div>
+
+    <!-- Servicio Asociado -->
+    <div>
+      <label for="servicioAsociado" class="block font-medium mb-1">Servicio Asociado</label>
+      <select
+        id="servicioAsociado"
+        formControlName="servicio_asociado"
+        class="form-control w-full px-3 py-2 border rounded-md border-slate-400 shadow-sm bg-slate-300"
+      >
+        <option value="">Seleccione el servicio asociado (Opcional)</option>
+        <option *ngFor="let servicio of servicios" [value]="servicio.id_servicio">
+          {{ servicio.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botones -->
+    <div class="md:col-span-2 flex justify-end space-x-4 mt-4 mb-10">
+      <button
+        type="button"
+        routerLink="/"
+        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+      >
+        Cancelar
+      </button>
+      <button
+        (click)="isEditing ? actualizarServicio() : crearServicio()"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
+        {{ isEditing ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>

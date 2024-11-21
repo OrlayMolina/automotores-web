@@ -48,7 +48,7 @@ export class LoginComponent {
       error: (error) => {
         Swal.fire({
           title: 'Login Fallido',
-          text: error.error.respuesta,
+          text: error.error.respuesta.token,
           icon: 'error',
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#8b0000',

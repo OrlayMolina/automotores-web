@@ -1,19 +1,28 @@
 <div class="container w-full mt-8">
-  <h2 class="text-2xl font-medium mb-2">Tabla de Servcios</h2>
+  <h2 class="text-2xl font-medium mb-2">Tabla de Servicios</h2>
 
   <!-- Sección en una sola fila -->
   <!-- Sección en una sola fila -->
   <div class="mb-4 d-flex align-items-center">
     <!-- Botón Crear -->
-    <button type="button" routerLink="/crear-producto" class="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition me-2" style="height: 100%;">
+    <button type="button" routerLink="/crear-servicio" class="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition me-2" style="height: 100%;">
       Crear
     </button>
 
     <!-- Campo de búsqueda y botón Consultar -->
     <div class="d-flex flex-grow-1">
-      <input type="text" class="form-control me-2" placeholder="Buscar cliente..." style="height: calc(2.5rem + 2px);">
-      <button type="button" class="btn btn-primary" style="height: calc(2.5rem + 2px);">
+      <input type="text" #idServicio class="form-control me-2" placeholder="Buscar por ID del Servicio..." style="height: calc(2.5rem + 2px);">
+      <button
+        type="button"
+        (click)="obtenerServicio(+idServicio.value)"
+        class="btn btn-primary" style="height: calc(2.5rem + 2px);">
         Consultar
+      </button>
+      <button
+        type="button"
+        (click)="limpiarFiltro(idServicio)"
+        class="bg-yellow-500 ml-1 rounded-md" style="height: calc(2.5rem + 2px);">
+        <i class="fas fa-times px-3"></i>
       </button>
     </div>
   </div>
@@ -31,17 +40,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1094952245</td>
-        <td>1</td>
-        <td>$1500000</td>
-        <td>Jorge</td>
-        <td>Andrés</td>
+      <tr *ngFor="let servicio of servicios">
+        <td>{{ servicio.id_servicio }}</td>
+        <td>{{ servicio.nombre }}</td>
+        <td>{{ servicio.descripcion_servicio }}</td>
+        <td>{{ servicio.precio }}</td>
+        <td>{{ getNombreServicioAsociado(servicio.servicio_asociado) }}</td>
         <td class="table-buttons">
-          <button type="button" class="btn btn-warning btn-sm me-2">
+          <button
+            type="button"
+            [routerLink]="['/crear-servicio']"
+            [queryParams]="{ id_servicio: servicio.id_servicio }"
+            class="btn btn-warning btn-sm me-2">
             Editar
           </button>
-          <button type="button" class="btn btn-danger btn-sm">
+          <button
+            type="button"
+            (click)="eliminarServicio(servicio.id_servicio)"
+            class="btn btn-danger btn-sm"
+          >
             Eliminar
           </button>
         </td>

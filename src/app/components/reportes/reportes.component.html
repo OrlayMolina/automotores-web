@@ -4,8 +4,22 @@
   <!-- Formulario de filtros para consultas SQL -->
   <div class="mb-6">
     <form class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Campo para seleccionar rango de fechas -->
+      <!-- Campo para seleccionar un cliente (opcional) -->
       <div>
+        <label for="reporte" class="block font-medium mb-1">Reporte</label>
+        <select
+          id="reporte"
+          (change)="onReporteChange($event)"
+          class="form-control w-full px-3 py-2 border rounded-md border-slate-400 shadow-sm bg-slate-300"
+        >
+          <option value="">Seleccionar Reporte</option>
+          <option *ngFor="let reporte of reportes">{{reporte.nombre_reporte}}</option>
+
+        </select>
+      </div>
+      <!-- Campo para seleccionar rango de fechas -->
+      <div
+        *ngIf="mostrarFechas">
         <label for="startDate" class="block font-medium mb-1">Fecha Inicio</label>
         <input
           type="date"
@@ -13,7 +27,8 @@
           class="form-control w-full px-3 py-2 border rounded-md"
         />
       </div>
-      <div>
+      <div
+        *ngIf="mostrarFechas">
         <label for="endDate" class="block font-medium mb-1">Fecha Fin</label>
         <input
           type="date"
@@ -21,19 +36,7 @@
           class="form-control w-full px-3 py-2 border rounded-md"
         />
       </div>
-      <!-- Campo para seleccionar un cliente (opcional) -->
-      <div>
-        <label for="cliente" class="block font-medium mb-1">Cliente</label>
-        <select
-          id="cliente"
-          class="form-control w-full px-3 py-2 border rounded-md"
-        >
-          <option value="">Seleccionar Cliente</option>
-          <option value="cliente1">Juan Pérez</option>
-          <option value="cliente2">Ana García</option>
-          <!-- Agrega más opciones dinámicamente -->
-        </select>
-      </div>
+
       <!-- Botón para generar reporte -->
       <div class="md:col-span-3">
         <button
@@ -49,28 +52,18 @@
   <!-- Tabla de resultados del reporte -->
   <div>
     <h3 class="text-xl font-medium mb-3">Resultados</h3>
-    <table class="table table-striped table-bordered">
-      <thead class="thead-dark">
-        <tr>
-          <!-- Encabezados dinámicos según el reporte generado -->
-          <th scope="col">Código</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Cliente</th>
-          <th scope="col">Servicio</th>
-          <th scope="col">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Filas de datos dinámicas -->
-        <tr>
-          <td>001</td>
-          <td>2024-11-15</td>
-          <td>Juan Pérez</td>
-          <td>Cambio de Aceite</td>
-          <td>150.00</td>
-        </tr>
-        <!-- Más filas según los datos obtenidos -->
-      </tbody>
-    </table>
+
+    <!-- Tablas de acuerdo al reporte seleccionado -->
+    <div *ngIf="reporteSeleccionado === 'Clientes con Correo'">
+      <app-cliente-con-correo></app-cliente-con-correo>
+    </div>
+
+    <div *ngIf="reporteSeleccionado === 'Empleados con Cargo y Salario'">
+      <app-empleado-con-cargo></app-empleado-con-cargo>
+    </div>
+
+    <div *ngIf="reporteSeleccionado === 'Tarifa Servicios'">
+      <app-servicio-con-precio></app-servicio-con-precio>
+    </div>
   </div>
 </div>
