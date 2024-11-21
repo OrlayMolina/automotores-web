@@ -61,7 +61,7 @@ export class GestionRepuestosComponent {
       return 'Proveedor no encontrado';
     }
 
-    return `${proveedor.nombre} || ''}`.trim();
+    return `${proveedor.nombre}`.trim();
   }
 
   public eliminarRepuesto(codigo_repuesto: string): void {

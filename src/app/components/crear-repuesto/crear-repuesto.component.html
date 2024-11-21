@@ -1,1 +1,107 @@
-<p>crear-repuesto works!</p>
+<div class="container w-full mt-8">
+  <h2 class="text-2xl font-medium mb-4">{{ isEditing ? 'Editar Repuesto' : 'Registrar Repuesto' }}</h2>
+
+  <!-- Formulario -->
+  <form class="grid grid-cols-1 md:grid-cols-2 gap-4" [formGroup]="crearRepuestoForm">
+    <!-- Número de Placa -->
+    <div>
+      <label for="codigo_repuesto" class="block font-medium mb-1">Código Repuesto</label>
+      <input
+        type="text"
+        formControlName="codigo_repuesto"
+        id="codigo_repuesto"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el código del repuesto"
+        required
+        [disabled]="isEditing"
+      />
+    </div>
+
+    <!-- Nombre -->
+    <div>
+      <label for="nombre" class="block font-medium mb-1">Nombre del Repuesto</label>
+      <input
+        type="text"
+        formControlName="nombre"
+        id="nombre"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el nombre del repuesto"
+        required
+      />
+    </div>
+
+    <!-- Descripción -->
+    <div>
+      <label for="descripcion" class="block font-medium mb-1">Descripción</label>
+      <input
+        type="text"
+        formControlName="descripcion"
+        id="descripcion"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa la descripción del repuesto"
+        required
+      />
+    </div>
+
+    <!-- Modelo -->
+    <div>
+      <label for="precio" class="block font-medium mb-1">Precio</label>
+      <input
+        type="number"
+        id="precio"
+        formControlName="precio"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa el modelo del vehículo"
+        required
+      />
+    </div>
+
+    <!-- Año del Modelo -->
+    <div>
+      <label for="cantidad" class="block font-medium mb-1">Cantidad</label>
+      <input
+        type="number"
+        id="cantidad"
+        formControlName="cantidad"
+        class="form-control w-full px-3 py-2 border rounded-md"
+        placeholder="Ingresa la cantidad"
+        min="1"
+        max="2099"
+        required
+      />
+    </div>
+
+    <!-- Proveedor -->
+    <div>
+      <label for="proveedor" class="block font-medium mb-1">Proveedor</label>
+      <select
+        id="proveedor"
+        formControlName="proveedor"
+        class="form-control w-full px-3 py-2 border rounded-md border-slate-400 shadow-sm bg-slate-300"
+        required
+      >
+        <option value="">Selecciona un proveedor</option>
+        <option *ngFor="let proveedor of proveedores" [value]="proveedor.nro_documento">
+          {{ proveedor.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botones -->
+    <div class="md:col-span-2 flex justify-end space-x-4 mt-4 mb-10">
+      <button
+        type="button"
+        routerLink="/"
+        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+      >
+        Cancelar
+      </button>
+      <button
+        (click)="isEditing ? actualizarRepuesto() : crearRepuesto()"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
+        {{ isEditing ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>

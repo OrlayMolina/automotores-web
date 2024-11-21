@@ -47,7 +47,7 @@
         <td>{{  repuesto.descripcion }}</td>
         <td>$ {{ repuesto.precio }}</td>
         <td>{{ repuesto.cantidad }}</td>
-        <td>Andrés</td>
+        <td>{{ getNombreProveedorAsociado(repuesto.proveedor ) }}</td>
         <td class="table-buttons">
           <button
             type="button"
