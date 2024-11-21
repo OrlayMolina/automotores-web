@@ -6,6 +6,7 @@ import { ClienteDTO } from '../dto/cliente-dto';
 import { EmpleadoDTO } from '../dto/empleado-dto';
 import { ProveedorDTO } from '../dto/proveedor-dto';
 import { ServicioDTO } from '../dto/servicio-dto';
+import { VehiculoDTO } from '../dto/vehiculo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,10 @@ export class UserService {
     return this.http.delete<MensajeDTO>(`${this.userURL}/servicios/eliminar-servicio/${id_servicio}`);
   }
 
+  public eliminarVehiculo(nro_placa: string): Observable<MensajeDTO> {
+    return this.http.delete<MensajeDTO>(`${this.userURL}/vehiculos/eliminar-vehiculo/${nro_placa}`);
+  }
+
   public obtenerUnCliente(nro_documento: number): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.userURL}/clientes/cliente/${nro_documento}`);
   }
@@ -68,6 +73,10 @@ export class UserService {
 
   public obtenerUnServicio(id_servicio: number): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.userURL}/servicios/servicio/${id_servicio}`);
+  }
+
+  public obtenerUnVehiculo(nro_placa: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userURL}/vehiculos/vehiculo/${nro_placa}`);
   }
 
   public crearCliente(clienteDTO: ClienteDTO): Observable<MensajeDTO> {
@@ -86,6 +95,10 @@ export class UserService {
     return this.http.post<MensajeDTO>(`${this.userURL}/servicios/crear-servicio`, servicio);
   }
 
+  public crearVehiculo(vehiculo: VehiculoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.userURL}/vehiculos/crear-vehiculo`, vehiculo);
+  }
+
   public actualizarCliente(nro_documento: number, clienteDTO: ClienteDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userURL}/clientes/actualizar-cliente/${nro_documento}`, clienteDTO);
   }
@@ -100,6 +113,10 @@ export class UserService {
 
   public actualizarServicio(id_servicio: number, servicio: ServicioDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userURL}/servicios/actualizar-servicio/${id_servicio}`, servicio);
+  }
+
+  public actualizarVehiculo(nro_placa: number, vehiculo: VehiculoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.userURL}/vehiculos/actualizar-vehiculo/${nro_placa}`, vehiculo);
   }
 
   //////

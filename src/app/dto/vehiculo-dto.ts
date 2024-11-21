@@ -4,5 +4,6 @@ export interface VehiculoDTO {
   marca: string,
   modelo: string,
   anio_modelo: string,
-  nro_motor: string
+  nro_motor: string,
+  cliente: number
 }

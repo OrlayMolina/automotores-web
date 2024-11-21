@@ -11,9 +11,18 @@
 
     <!-- Campo de búsqueda y botón Consultar -->
     <div class="d-flex flex-grow-1">
-      <input type="text" class="form-control me-2" placeholder="Buscar cliente..." style="height: calc(2.5rem + 2px);">
-      <button type="button" class="btn btn-primary" style="height: calc(2.5rem + 2px);">
+      <input type="text" #nroPlaca class="form-control me-2" placeholder="Buscar por placa del Vehiculo..." style="height: calc(2.5rem + 2px);">
+      <button
+        type="button"
+        (click)="obtenerVehiculo(nroPlaca.value)"
+        class="btn btn-primary" style="height: calc(2.5rem + 2px);">
         Consultar
+      </button>
+      <button
+        type="button"
+        (click)="limpiarFiltro(nroPlaca)"
+        class="bg-yellow-500 ml-1 rounded-md" style="height: calc(2.5rem + 2px);">
+        <i class="fas fa-times px-3"></i>
       </button>
     </div>
   </div>
@@ -27,27 +36,33 @@
         <th scope="col">Marca</th>
         <th scope="col">Modelo</th>
         <th scope="col">Año del Modelo</th>
-        <th scope="col">Nro Chasis</th>
-        <th scope="col">Nro Motor</th>
         <th scope="col">Propietario</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>XRM-789</td>
-        <td>Automóvil</td>
-        <td>Renault</td>
-        <td>Sandero</td>
-        <td>2015</td>
-        <td>1</td>
-        <td>1</td>
-        <td>Orlay Andrés Molina Gómez</td>
+      <tr *ngFor="let vehiculo of vehiculos">
+        <td>{{ vehiculo.nro_placa }}</td>
+        <td *ngIf="vehiculo.tipo_vehiculo === 1">CAMIONETA</td>
+        <td *ngIf="vehiculo.tipo_vehiculo === 2">CARRO</td>
+        <td *ngIf="vehiculo.tipo_vehiculo === 3">MOTO</td>
+        <td>{{ vehiculo.marca }}</td>
+        <td>{{ vehiculo.modelo }}</td>
+        <td>{{ vehiculo.anio_modelo }}</td>
+        <td>{{ getNombreClienteAsociado(vehiculo.cliente ) }}</td>
         <td class="table-buttons">
-          <button type="button" class="btn btn-warning btn-sm me-2">
+          <button
+            type="button"
+            [routerLink]="['/crear-vehiculo']"
+            [queryParams]="{ nro_placa: vehiculo.nro_placa }"
+            class="btn btn-warning btn-sm me-2">
             Editar
           </button>
-          <button type="button" class="btn btn-danger btn-sm">
+          <button
+            type="button"
+            (click)="eliminarVehiculo(vehiculo.nro_placa)"
+            class="btn btn-danger btn-sm"
+          >
             Eliminar
           </button>
         </td>
