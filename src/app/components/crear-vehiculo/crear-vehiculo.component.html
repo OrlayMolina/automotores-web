@@ -1,17 +1,19 @@
 <div class="container w-full mt-8">
-  <h2 class="text-2xl font-medium mb-4">Registrar Vehículo</h2>
+  <h2 class="text-2xl font-medium mb-4">{{ isEditing ? 'Editar Vehiculo' : 'Registrar Vehiculo' }}</h2>
 
   <!-- Formulario -->
-  <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <form class="grid grid-cols-1 md:grid-cols-2 gap-4" [formGroup]="crearVehiculoForm">
     <!-- Número de Placa -->
     <div>
-      <label for="nroPlaca" class="block font-medium mb-1">Número de Placa</label>
+      <label for="nro_placa" class="block font-medium mb-1">Número de Placa</label>
       <input
         type="text"
+        formControlName="nro_placa"
         id="nroPlaca"
         class="form-control w-full px-3 py-2 border rounded-md"
         placeholder="Ingresa el número de placa"
         required
+        [disabled]="isEditing"
       />
     </div>
 
@@ -20,14 +22,12 @@
       <label for="tipoVehiculo" class="block font-medium mb-1">Tipo de Vehículo</label>
       <select
         id="tipoVehiculo"
+        formControlName="tipo_vehiculo"
         class="form-control w-full px-3 py-2 border rounded-md"
         required
       >
         <option value="">Selecciona el tipo de vehículo</option>
-        <option value="1">Sedán</option>
-        <option value="2">SUV</option>
-        <option value="3">Camioneta</option>
-        <!-- Agrega más opciones según sea necesario -->
+        <option *ngFor="let tipo of tipoVehiculoDTO" [value]="tipo.id_tipo_vehiculo">{{tipo.nombre_tipo_vehiculo}}</option>
       </select>
     </div>
 
@@ -36,6 +36,7 @@
       <label for="marca" class="block font-medium mb-1">Marca</label>
       <input
         type="text"
+        formControlName="marca"
         id="marca"
         class="form-control w-full px-3 py-2 border rounded-md"
         placeholder="Ingresa la marca del vehículo"
@@ -49,6 +50,7 @@
       <input
         type="text"
         id="modelo"
+        formControlName="modelo"
         class="form-control w-full px-3 py-2 border rounded-md"
         placeholder="Ingresa el modelo del vehículo"
         required
@@ -61,6 +63,7 @@
       <input
         type="number"
         id="anioModelo"
+        formControlName="anio_modelo"
         class="form-control w-full px-3 py-2 border rounded-md"
         placeholder="Ingresa el año del modelo"
         min="1900"
@@ -69,17 +72,6 @@
       />
     </div>
 
-    <!-- Número de Chasis -->
-    <div>
-      <label for="nroChasis" class="block font-medium mb-1">Número de Chasis</label>
-      <input
-        type="text"
-        id="nroChasis"
-        class="form-control w-full px-3 py-2 border rounded-md"
-        placeholder="Ingresa el número de chasis"
-        required
-      />
-    </div>
 
     <!-- Número de Motor -->
     <div>
@@ -87,6 +79,7 @@
       <input
         type="text"
         id="nroMotor"
+        formControlName="nro_motor"
         class="form-control w-full px-3 py-2 border rounded-md"
         placeholder="Ingresa el número de motor"
         required
@@ -98,13 +91,14 @@
       <label for="cliente" class="block font-medium mb-1">Cliente</label>
       <select
         id="cliente"
+        formControlName="cliente"
         class="form-control w-full px-3 py-2 border rounded-md"
         required
       >
         <option value="">Selecciona un cliente</option>
-        <option value="1">Juan Pérez</option>
-        <option value="2">Ana García</option>
-        <!-- Agrega opciones dinámicamente desde la base de datos -->
+        <option *ngFor="let cliente of clientes" [value]="cliente.nro_documento">
+          {{ cliente.primer_nombre + ' ' + cliente.segundo_nombre + ' ' + cliente.primer_apellido + ' ' + cliente.segundo_apellido}}
+        </option>
       </select>
     </div>
 
@@ -118,10 +112,10 @@
         Cancelar
       </button>
       <button
-        type="submit"
+        (click)="isEditing ? actualizarVehiculo() : crearVehiculo()"
         class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
       >
-        Guardar
+        {{ isEditing ? 'Actualizar' : 'Guardar' }}
       </button>
     </div>
   </form>

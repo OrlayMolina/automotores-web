@@ -115,7 +115,7 @@ export class UserService {
     return this.http.post<MensajeDTO>(`${this.userURL}/servicios/actualizar-servicio/${id_servicio}`, servicio);
   }
 
-  public actualizarVehiculo(nro_placa: number, vehiculo: VehiculoDTO): Observable<MensajeDTO> {
+  public actualizarVehiculo(nro_placa: string, vehiculo: VehiculoDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userURL}/vehiculos/actualizar-vehiculo/${nro_placa}`, vehiculo);
   }
 
